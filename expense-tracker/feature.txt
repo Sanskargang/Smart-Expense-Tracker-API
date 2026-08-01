@@ -1,0 +1,64 @@
+================================================================================
+                    SMART EXPENSE TRACKER REST API - FEATURES
+================================================================================
+
+1. ADD AN EXPENSE (POST /expenses)
+   - Generates a unique UUID v4 identifier for every expense record.
+   - Accepts payload fields:
+     * id: UUID v4 (auto-generated)
+     * title: String (required, non-empty)
+     * amount: Number (required, strictly greater than 0)
+     * category: String (required, non-empty)
+     * date: String (required, valid ISO 8601 YYYY-MM-DD format)
+   - Returns HTTP status 201 Created on success.
+   - Automatically trims whitespace on string fields.
+
+2. VIEW ALL EXPENSES (GET /expenses)
+   - Returns an array of all expense records stored in expenses.json.
+   - Returns HTTP status 200 OK.
+
+3. FILTER EXPENSES BY CATEGORY (GET /expenses?category=Food)
+   - Filters the returned expense records by category name.
+   - Matches categories case-insensitively (e.g., "?category=food" matches "Food").
+   - Returns an empty array if no expenses match the specified category.
+
+4. CALCULATE TOTAL EXPENSES (GET /expenses/summary)
+   - Computes financial summary across all recorded expenses:
+     * totalExpenses: Overall sum of all expense amounts.
+     * categoryTotals: Object containing total sum grouped by each category (e.g., {"Food": 800, "Travel": 700}).
+   - Automatically rounds totals to 2 decimal places to prevent floating-point precision artifacts.
+   - Returns HTTP status 200 OK.
+
+5. DELETE AN EXPENSE (DELETE /expenses/:id)
+   - Deletes an expense record matching the provided UUID parameter.
+   - Returns HTTP status 200 OK with confirmation message and deleted record details.
+   - Returns HTTP status 404 Not Found with descriptive error JSON if the ID does not exist.
+
+6. ATOMIC JSON FILE STORAGE (utils/fileStorage.js)
+   - Stores all expense data inside a local JSON file (expenses.json).
+   - Implements atomic writes using temporary staging files (.tmp) and fs.renameSync to prevent data corruption.
+   - Uses an in-memory asynchronous promise mutex queue to serialize concurrent write operations safely.
+   - Gracefully handles empty or missing JSON files by auto-initializing an empty array structure.
+
+7. REQUEST BODY VALIDATION MIDDLEWARE (middleware/validateExpense.js)
+   - Pre-validates incoming POST /expenses requests before they reach the controller.
+   - Validates that title, amount, category, and date are present and of correct types.
+   - Enforces positive numerical amounts (> 0) and strict ISO YYYY-MM-DD date formatting.
+   - Returns HTTP 400 Bad Request immediately with an array of descriptive error details if validation fails.
+
+8. CENTRALIZED ERROR HANDLING MIDDLEWARE (middleware/errorHandler.js)
+   - Standardizes JSON error response formatting across all endpoints.
+   - Captures malformed JSON syntax errors from request bodies.
+   - Maps operational errors to appropriate HTTP status codes (400, 404, 500).
+
+9. CLEAN LAYERED ARCHITECTURE
+   - Routes (src/routes/expenseRoutes.js): Define RESTful HTTP verbs and paths.
+   - Controllers (src/controllers/expenseController.js): Orchestrate HTTP request/response flow.
+   - Services (src/services/expenseService.js): Encapsulate domain logic and mathematical aggregations.
+   - Middleware (src/middleware/): Isolate validation and cross-cutting error handling.
+   - Storage Utilities (src/utils/fileStorage.js): Manage atomic disk persistence.
+
+10. COMPREHENSIVE AUTOMATED TESTING (tests/expense.test.js)
+    - Full Jest + Supertest integration testing suite.
+    - Uses an isolated temporary test database (expenses.test.json) to avoid modifying development data.
+    - Tests positive CRUD workflows, validation failures, category filtering, summary calculations, and 404 errors.

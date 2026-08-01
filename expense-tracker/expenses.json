@@ -1,0 +1,37 @@
+[
+  {
+    "id": "e44c2bc0-a9a7-4cb3-8a3d-36d1b74d6c11",
+    "title": "Grocery Shopping",
+    "amount": 120.5,
+    "category": "Food",
+    "date": "2026-07-28"
+  },
+  {
+    "id": "f82b79a1-5c34-4e89-8d11-9a74656b2b22",
+    "title": "Flight to Tokyo",
+    "amount": 750,
+    "category": "Travel",
+    "date": "2026-07-29"
+  },
+  {
+    "id": "c13d9a04-332e-4b71-92f5-8d2a609d4433",
+    "title": "New Mechanical Keyboard",
+    "amount": 150,
+    "category": "Shopping",
+    "date": "2026-07-30"
+  },
+  {
+    "id": "b91f0a12-6804-4829-9e17-21a1139f8844",
+    "title": "Team Pizza Lunch",
+    "amount": 84.75,
+    "category": "Food",
+    "date": "2026-07-31"
+  },
+  {
+    "id": "d05c4793-1b91-49e0-81f1-3d9a9101d555",
+    "title": "Hotel Stay",
+    "amount": 299.99,
+    "category": "Travel",
+    "date": "2026-07-31"
+  }
+]

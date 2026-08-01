@@ -1,0 +1,41 @@
+{
+  "name": "smart-expense-tracker-api",
+  "version": "1.0.0",
+  "description": "Production-quality Smart Expense Tracker REST API with clean architecture, JSON file storage, and Jest + Supertest testing.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**"
+  },
+  "keywords": [
+    "rest-api",
+    "expense-tracker",
+    "clean-architecture",
+    "express",
+    "jest",
+    "supertest"
+  ],
+  "author": "Senior Backend Engineer",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^9.20.1",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  }
+}
